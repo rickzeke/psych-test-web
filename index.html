@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>心灵探索 · 心理互动测试</title>
+  <meta name="description" content="专业心理小测试，探索你的内在人格，一键分享测试结果">
+  <meta property="og:title" content="心灵探索 · 心理互动测试">
+  <meta property="og:description" content="5种专业心理测试，可视化结果，一键分享">
+  <meta property="og:type" content="website">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- 背景装饰 -->
+  <div class="bg-decor">
+    <div class="bg-circle c1"></div>
+    <div class="bg-circle c2"></div>
+    <div class="bg-circle c3"></div>
+    <div class="bg-circle c4"></div>
+    <div class="bg-circle c5"></div>
+  </div>
+
+  <div id="app">
+    <!-- ==================== 首页 ==================== -->
+    <div id="home-screen" class="screen active">
+      <header class="home-header">
+        <div class="logo-container">
+          <div class="logo-icon">🧠</div>
+          <h1 class="app-title">心灵探索</h1>
+          <p class="app-subtitle">探索你的内在宇宙</p>
+        </div>
+        <button class="btn-archive" id="btn-open-archive" title="我的档案">
+          <span class="archive-icon">📋</span>
+          <span>我的档案</span>
+        </button>
+      </header>
+
+      <section class="hero">
+        <div class="hero-badge">✨ 5种专业心理测试</div>
+        <h2 class="hero-title">你比自己想象的<br>更有趣</h2>
+        <p class="hero-desc">选择一个测试，开始探索之旅</p>
+      </section>
+
+      <section class="test-grid" id="test-grid">
+        <!-- JS动态渲染 -->
+      </section>
+
+      <footer class="home-footer">
+        <p>🛡️ 所有数据仅保存在本地 · 纯前端 · 无需注册</p>
+      </footer>
+    </div>
+
+    <!-- ==================== 答题页 ==================== -->
+    <div id="quiz-screen" class="screen">
+      <div class="quiz-header">
+        <button class="btn-back" id="btn-quiz-back">← 返回</button>
+        <div class="quiz-test-name" id="quiz-test-name"></div>
+        <div class="quiz-counter" id="quiz-counter">1/10</div>
+      </div>
+
+      <div class="progress-bar-container">
+        <div class="progress-bar" id="progress-bar"></div>
+        <div class="progress-glow"></div>
+      </div>
+
+      <div class="quiz-content" id="quiz-content">
+        <div class="question-card" id="question-card">
+          <div class="question-number" id="question-number">Q1</div>
+          <h3 class="question-text" id="question-text"></h3>
+          <div class="options-list" id="options-list"></div>
+        </div>
+      </div>
+
+      <div class="quiz-nav">
+        <button class="btn-nav btn-prev" id="btn-prev" disabled>← 上一题</button>
+        <button class="btn-nav btn-next" id="btn-next" disabled>下一题 →</button>
+      </div>
+    </div>
+
+    <!-- ==================== 结果页 ==================== -->
+    <div id="result-screen" class="screen">
+      <div class="result-header">
+        <button class="btn-back" id="btn-result-back">← 返回首页</button>
+        <span class="result-badge" id="result-badge"></span>
+      </div>
+
+      <div class="result-hero" id="result-hero">
+        <div class="result-type-emoji" id="result-emoji"></div>
+        <h2 class="result-type-name" id="result-type-name"></h2>
+        <p class="result-type-desc" id="result-type-desc"></p>
+      </div>
+
+      <div class="result-charts">
+        <div class="chart-card">
+          <h3 class="chart-title">📊 维度雷达图</h3>
+          <canvas id="radar-chart" width="300" height="300"></canvas>
+        </div>
+        <div class="chart-card">
+          <h3 class="chart-title">📈 得分柱状图</h3>
+          <canvas id="bar-chart" width="300" height="240"></canvas>
+        </div>
+      </div>
+
+      <div class="result-interpretation">
+        <div class="ai-badge">🤖 AI 深度解读</div>
+        <div class="interpretation-text" id="ai-interpretation"></div>
+      </div>
+
+      <div class="result-traits" id="result-traits"></div>
+
+      <div class="result-actions">
+        <button class="btn-action btn-share" id="btn-share">📤 生成分享卡片</button>
+        <button class="btn-action btn-retry" id="btn-retry">🔄 重新测试</button>
+        <button class="btn-action btn-home" id="btn-go-home">🏠 返回首页</button>
+      </div>
+    </div>
+
+    <!-- ==================== 档案页 ==================== -->
+    <div id="archive-screen" class="screen">
+      <div class="archive-header">
+        <button class="btn-back" id="btn-archive-back">← 返回</button>
+        <h2>📋 我的档案</h2>
+      </div>
+
+      <div class="archive-summary" id="archive-summary">
+        <div class="summary-stat">
+          <span class="stat-num" id="stat-total">0</span>
+          <span class="stat-label">完成测试</span>
+        </div>
+        <div class="summary-stat">
+          <span class="stat-num" id="stat-latest">—</span>
+          <span class="stat-label">最近类型</span>
+        </div>
+      </div>
+
+      <div class="archive-list" id="archive-list">
+        <p class="empty-hint">还没有测试记录，去做个测试吧 ✨</p>
+      </div>
+
+      <button class="btn-clear-history" id="btn-clear-history">🗑️ 清除记录</button>
+    </div>
+
+    <!-- ==================== 分享弹窗 ==================== -->
+    <div id="share-modal" class="modal">
+      <div class="modal-overlay"></div>
+      <div class="modal-content">
+        <button class="modal-close" id="modal-close">✕</button>
+        <h3>📤 分享你的测试结果</h3>
+        <div class="share-card-container">
+          <canvas id="share-canvas" width="600" height="800"></canvas>
+        </div>
+        <div class="share-actions">
+          <button class="btn-share-action" id="btn-download">💾 保存图片</button>
+          <button class="btn-share-action" id="btn-copy-link">🔗 复制链接</button>
+        </div>
+        <p class="share-tip">长按图片保存，分享到朋友圈或发给朋友</p>
+      </div>
+    </div>
+
+    <!-- Toast 提示 -->
+    <div id="toast" class="toast"></div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
